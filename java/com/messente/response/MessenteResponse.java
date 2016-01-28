@@ -95,7 +95,7 @@ public class MessenteResponse {
     public boolean isSuccess() {
 
         return RESPONSE != null
-                && !RESPONSE.isEmpty()
+                && !RESPONSE.trim().isEmpty()
                 && !RESPONSE.startsWith(ResponsePrefixes.ERROR)
                 && !RESPONSE.startsWith(ResponsePrefixes.FAILED);
     }

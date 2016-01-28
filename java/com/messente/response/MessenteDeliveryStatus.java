@@ -33,7 +33,7 @@ public class MessenteDeliveryStatus extends MessenteResponse {
     @Override
     public boolean isSuccess() {
         return (RESPONSE != null
-                && !RESPONSE.isEmpty()
+                && !RESPONSE.trim().isEmpty()
                 && !RESPONSE.startsWith(ResponsePrefixes.ERROR))
                 || RESPONSE.equals(ResponsePrefixes.FAILED + "102");
     }

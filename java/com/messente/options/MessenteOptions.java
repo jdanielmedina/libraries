@@ -259,27 +259,27 @@ public class MessenteOptions {
 
         Map<String, String> options = new HashMap<>();
 
-        if (getDlrUrl() != null && !getDlrUrl().isEmpty()) {
+        if (getDlrUrl() != null && !getDlrUrl().trim().isEmpty()) {
             options.put("dlr-url", getDlrUrl());
         }
 
-        if (getValidity() != null && !getValidity().isEmpty()) {
+        if (getValidity() != null && !getValidity().trim().isEmpty()) {
             options.put("validity", getValidity());
         }
 
-        if (getUdh() != null && !getUdh().isEmpty()) {
+        if (getUdh() != null && !getUdh().trim().isEmpty()) {
             options.put("udh", getUdh());
         }
 
-        if (getTimeToSend() != null && !getTimeToSend().isEmpty()) {
+        if (getTimeToSend() != null && !getTimeToSend().trim().isEmpty()) {
             options.put("time_to_send", getTimeToSend());
         }
 
-        if (getCharset() != null && !getCharset().isEmpty()) {
+        if (getCharset() != null && !getCharset().trim().isEmpty()) {
             options.put("charset", getCharset());
         }
 
-        if (getAutoconvert() != null && !getAutoconvert().isEmpty()) {
+        if (getAutoconvert() != null && !getAutoconvert().trim().isEmpty()) {
             options.put("autoconvert", getAutoconvert());
         }
 

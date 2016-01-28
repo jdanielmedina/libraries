@@ -378,7 +378,7 @@ public class Messente {
         StringBuilder postData = new StringBuilder();
 
         appendRequestParameters(postData, options.getOptions(), true);
-        if (from != null && !from.isEmpty()) {
+        if (from != null && !from.trim().isEmpty()) {
             appendRequestParameter(
                     postData,
                     "from",
@@ -584,7 +584,7 @@ public class Messente {
     public MessenteDeliveryStatus getDeliveryStatus(String msgid, MessenteOptions options)
             throws MessenteException {
 
-        if (msgid == null || msgid.isEmpty()) {
+        if (msgid == null || msgid.trim().isEmpty()) {
             throw new MessenteException("Cannot check message delivery status "
                     + "- message ID not set!");
         }
@@ -681,11 +681,11 @@ public class Messente {
 
     public URL getMessagingURL(String from, String to, String text, MessenteOptions options) throws MessenteException {
 
-        if (to == null || to.isEmpty()) {
+        if (to == null || to.trim().isEmpty()) {
             throw new MessenteException("Can't build URL : recipient is not specified!");
         }
 
-        if (text == null || text.isEmpty()) {
+        if (text == null || text.trim().isEmpty()) {
             throw new MessenteException("Can't build URL : SMS text is not specified!");
         }
 
@@ -695,7 +695,7 @@ public class Messente {
 
         StringBuilder postData = new StringBuilder();
 
-        if (from != null && !from.isEmpty()) {
+        if (from != null && !from.trim().isEmpty()) {
             appendRequestParameter(postData, "from", from, options.getCharset());
         }
 
@@ -753,7 +753,7 @@ public class Messente {
 
     public URL getDlrURL(String msgid, MessenteOptions options) throws MessenteException {
 
-        if (msgid == null || msgid.isEmpty()) {
+        if (msgid == null || msgid.trim().isEmpty()) {
             throw new MessenteException("Message ID not specified for DLR!");
         }
 
