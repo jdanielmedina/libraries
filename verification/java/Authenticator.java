@@ -67,7 +67,6 @@ public class Authenticator {
         }
 
         return parameters.get("sig").equals(generateSignature(parameters));
-
     }
 
     /**
@@ -96,9 +95,7 @@ public class Authenticator {
             }
         }
 
-        String str = sigString.toString();
-        System.out.println(str);
-        return generateHash(str);
+        return generateHash(sigString.toString());
     }
 
     /**
@@ -120,13 +117,10 @@ public class Authenticator {
                 sb.append(String.format("%02x", b & 0xff));
             }
 
-            String hash = sb.toString();
-            System.out.println(hash);
-            return hash;
+            return sb.toString();
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             //throw new Exception("Error occurred while hashing - " + ex.getMessage());
-
             return null;
 
         }
