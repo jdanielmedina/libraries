@@ -25,7 +25,7 @@ public class VerifyServlet extends HttpServlet {
     private final String VERSION = "1";
     private final String CALLBACK_URL = "http://yourserver.com/verification/";
 
-    // Calculated signature based on the example credentials: b38d46f43c48eef85bfedc0ab7b329e0
+
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
@@ -72,16 +72,13 @@ public class VerifyServlet extends HttpServlet {
                 System.out.println("VERIFICATION ERROR: Phone number does not match!");
             } else {
 
-                // Add 'pass' parameter just to calculate signature. 
-                // REMEMBER: 'pass' parameter is never participating in the communication between servers!
-                params.put("pass", MESSENTE_API_PASSWORD);
 
                 // Initialize authenticator
                 Authenticator authenticator = new Authenticator();
 
                 // Verify signatures by comparing signatures that Messente returned (param 'sig') 
                 // and the signature you can calculate from response parameters
-                respStr = authenticator.verifySignature(params)
+                respStr = authenticator.verifySignature(params, MESSENTE_API_PASSWORD)
                         ? "You are verified!" : "Sorry! Verification failed!";
             }
 

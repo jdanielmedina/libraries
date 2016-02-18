@@ -27,9 +27,10 @@ public class Authenticator {
      * Generate signature.
      *
      * @param parameters Map with request parameters.
+     * @param pass Messente account API password.
      * @return MD5 hashed string as signature.
      */
-    public String generateSignature(Map<String, String> parameters) {
+    public String generateSignature(Map<String, String> parameters, String pass) {
 
         if (parameters == null || parameters.isEmpty()) {
             throw new IllegalArgumentException("Parameters are missing - can't generate signature!");
@@ -39,13 +40,15 @@ public class Authenticator {
             throw new IllegalArgumentException("'user' parameter is missing - can't generate signature!");
         }
 
-        if (!parameters.containsKey("pass") && parameters.get("pass").trim().isEmpty()) {
-            throw new IllegalArgumentException("'pass' parameter is missing - can't generate signature!");
+        if (pass == null || pass.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password not set - can't generate signature!");
         }
 
         if (!parameters.containsKey("version") && parameters.get("version").trim().isEmpty()) {
             throw new IllegalArgumentException("'version' parameter is missing - can't generate signature!");
         }
+
+        parameters.put("pass", pass);
 
         return generateSignatureHash(parameters);
     }
@@ -54,9 +57,10 @@ public class Authenticator {
      * Compares signatures.
      *
      * @param parameters Map with request parameters.
+     * @param pass Messente account API password.
      * @return true if signatures are equal, otherwise false.
      */
-    public boolean verifySignature(Map<String, String> parameters) {
+    public boolean verifySignature(Map<String, String> parameters, String pass) {
 
         if (parameters == null || parameters.isEmpty()) {
             throw new IllegalArgumentException("Parameters are missing - can't compare signatures!");
@@ -66,7 +70,11 @@ public class Authenticator {
             throw new IllegalArgumentException("'sig' parameter is missing - can't compare signatures!");
         }
 
-        return parameters.get("sig").equals(generateSignature(parameters));
+        if (pass == null || pass.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password not set - can't compare signatures!");
+        }
+
+        return parameters.get("sig").equals(generateSignature(parameters, pass));
     }
 
     /**
