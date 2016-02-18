@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 // Get config
 require_once 'config.php';
@@ -34,11 +34,8 @@ if (isset($status) && $status == 'VERIFIED') {
         }
     }
 
-    //Add password param (only needed for signature calculation)
-    $params['pass'] = MESSENTE_API_PASSWORD;
-
     // Validate the signature
-    if ($signer->verifySignatures($params)) {
+    if ($signer->verifySignatures($params, MESSENTE_API_PASSWORD)) {
         ?>
 
         <!DOCTYPE html>

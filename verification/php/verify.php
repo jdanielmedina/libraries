@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 require_once 'config.php';
 require_once 'signer.php';
@@ -35,7 +35,6 @@ function authenticate($username, $password) {
         $request_params = array(
             'user' => MESSENTE_API_USERNAME,
             'version' => VERSION,
-            'pass' => MESSENTE_API_PASSWORD,
             'callback_url' => CALLBACK_URL
         );
 
@@ -48,10 +47,7 @@ function authenticate($username, $password) {
         $signer = new Signer();
 
 		// Generate signature
-        $sig = $signer->generateSignature($request_params);
-
-        // Remove password for security reasons
-        unset($request_params['pass']);
+        $sig = $signer->generateSignature($request_params, MESSENTE_API_PASSWORD);        
 
         // Add signature to array
         $request_params['sig'] = $sig;

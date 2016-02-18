@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Takes care of generating signature for verification and signature comparison.
@@ -21,7 +21,7 @@ class Signer {
      * @param array $parameters with required elements for generating a signature.
      * @return string with a signature hash.
      */
-    public function generateSignature($parameters) {
+    public function generateSignature($parameters, $pass) {
 
         if (!isset($parameters) && empty($parameters)) {
             die('Missing parameters - cannot generate signature!');
@@ -32,14 +32,17 @@ class Signer {
             die('Username is not set!');
         }
 
-        if (!array_key_exists('pass', $parameters) || !isset($parameters['pass']) || !preg_match('/\S/', $parameters['pass'])) {
-            die('Password is not set!');
+        if (!isset($pass) || !preg_match('/\S/', $pass)) {
+            die('Username is not set!');
         }
 
         if (!array_key_exists('version', $parameters) || !isset($parameters['version']) || preg_match('/^\D?$/', $parameters['version'])) {
             die('Version is not set or not numerical!');
-        }
-
+        }		
+		
+		//Add password param (only needed for signature calculation)
+		$parameters['pass'] = $pass;
+		
         return $this->hashIt($parameters);
     }
 
@@ -49,13 +52,13 @@ class Signer {
      * @param array $parameters with required elements for generating and verifying signature.
      * @return boolean indicating if the signatures match.
      */
-    public function verifySignatures($parameters) {
+    public function verifySignatures($parameters, $pass) {
 
         if (!isset($parameters) && empty($parameters)) {
             return false;
         }
 
-        if ($parameters['sig'] === $this->generateSignature($parameters)) {
+        if ($parameters['sig'] === $this->generateSignature($parameters, $pass)) {
             return true;
         }
 
